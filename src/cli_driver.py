@@ -1,5 +1,5 @@
 # cli_driver.py
-# This file is intended to be run to play or test the 2048 game.
+# This file is intended to be run to play or test the 2048 game on the CLI
 
 from typing import List
 
