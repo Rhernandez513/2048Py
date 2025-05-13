@@ -1,0 +1,189 @@
+:root {
+    --font-primary: 'Poppins', sans-serif;
+    --font-handwritten: 'Caveat', cursive;
+
+    --color-bg: #e0f7fa; /* Light sky blue */
+    --color-container-bg: #ffffff;
+    --color-text: #37474f; /* Dark slate gray */
+    --color-board-bg: #a1887f; /* Muted earth brown - like Totoro's fur */
+    --color-tile-bg: #fff9c4; /* Pale yellow */
+    --color-tile-text: #5d4037; /* Dark brown */
+    --color-button-bg: #81c784; /* Soft green */
+    --color-button-text: #ffffff;
+    --color-game-over-bg: rgba(255, 255, 255, 0.9);
+
+    --tile-size: 80px; /* Base size, will be adjusted by JS for different board sizes */
+    --tile-margin: 8px;
+    --border-radius: 10px;
+}
+
+body {
+    font-family: var(--font-primary);
+    background-color: var(--color-bg);
+    background-image: url('https://www.transparenttextures.com/patterns/watercolor.png'); /* Subtle watercolor texture */
+    color: var(--color-text);
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+.game-container {
+    background-color: var(--color-container-bg);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    max-width: 500px; /* Adjust as needed */
+    width: 100%;
+}
+
+header h1 {
+    font-family: var(--font-handwritten);
+    color: #2e7d32; /* Forest green */
+    font-size: 3.5em;
+    margin-bottom: 10px;
+}
+
+.score-container {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: #558b2f; /* Richer green */
+}
+
+.controls {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.controls label {
+    font-size: 1em;
+}
+
+.controls input[type="number"] {
+    width: 50px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+    font-family: var(--font-primary);
+}
+
+button {
+    background-color: var(--color-button-bg);
+    color: var(--color-button-text);
+    border: none;
+    padding: 10px 20px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 1em;
+    font-family: var(--font-primary);
+    transition: background-color 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+button:hover {
+    background-color: #66bb6a; /* Lighter green */
+}
+
+#game-board-container {
+    position: relative; /* For game over message overlay */
+}
+
+#game-board {
+    display: grid;
+    background-color: var(--color-board-bg);
+    border-radius: var(--border-radius);
+    padding: var(--tile-margin);
+    position: relative; /* For positioning tiles */
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
+    /* Dynamic grid columns will be set by JS */
+}
+
+.tile {
+    width: var(--tile-size);
+    height: var(--tile-size);
+    background-color: var(--color-tile-bg);
+    color: var(--color-tile-text);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.8em; /* Base size, adjust as needed */
+    font-weight: bold;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.1s ease-in-out, background-color 0.2s ease;
+    /* Animation for appearing */
+    animation: appear 0.2s ease-in-out;
+}
+
+@keyframes appear {
+    from {
+        transform: scale(0);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+/* Tile Colors - Inspired by Ghibli palettes (earthy, soft) */
+.tile[data-value="2"] { background-color: #fffde7; color: #795548; }
+.tile[data-value="4"] { background-color: #ffecb3; color: #795548; }
+.tile[data-value="8"] { background-color: #ffd54f; color: #ffffff; } /* Satsuki's corn yellow */
+.tile[data-value="16"] { background-color: #ffb74d; color: #ffffff; } /* Ponyo orange */
+.tile[data-value="32"] { background-color: #ff8a65; color: #ffffff; } /* Redish orange */
+.tile[data-value="64"] { background-color: #f06292; color: #ffffff; } /* Kiki's bow pink/red */
+.tile[data-value="128"] { background-color: #4fc3f7; color: #ffffff; } /* Sky blue */
+.tile[data-value="256"] { background-color: #4dd0e1; color: #ffffff; } /* Totoro blue-grey hint */
+.tile[data-value="512"] { background-color: #81c784; color: #ffffff; } /* Forest green */
+.tile[data-value="1024"] { background-color: #aed581; color: #ffffff; } /* Lighter forest green */
+.tile[data-value="2048"] { background-color: #66bb6a; color: #ffffff; font-size: 1.5em; } /* Special green */
+.tile[data-value="4096"] { background-color: #388e3c; color: #ffffff; font-size: 1.5em; }
+.tile[data-value="8192"] { background-color: #1b5e20; color: #ffffff; font-size: 1.5em; }
+
+
+.tile-empty { /* For empty cells in the grid if needed for styling, not strictly for tiles */
+    background-color: rgba(238, 228, 218, 0.35); /* Default 2048 empty tile color, but Ghibli-fied */
+}
+
+#game-over-message {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--color-game-over-bg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: var(--border-radius);
+    z-index: 100;
+}
+
+#game-over-message h2 {
+    font-family: var(--font-handwritten);
+    font-size: 3em;
+    color: #d32f2f; /* Deep red */
+    margin-bottom: 10px;
+}
+#game-over-message p {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+footer {
+    margin-top: 30px;
+    font-size: 0.9em;
+    color: #757575;
+}
