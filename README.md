@@ -1,8 +1,9 @@
 # 2048Py Deployed on Firebase
 
-View API spec here: <https://py2048api-350467051328.us-central1.run.app/docs>
-
 View ReDoc UI here: <https://py2048api-350467051328.us-central1.run.app/redoc>
+
+View OpenAPI Swagger UI here: <https://py2048api-350467051328.us-central1.run.app/docs>
+
 
 <https://py2048web.web.app/>
 
