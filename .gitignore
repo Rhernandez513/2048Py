@@ -1,5 +1,5 @@
-# Created by https://www.toptal.com/developers/gitignore/api/python,venv,node,web
-# Edit at https://www.toptal.com/developers/gitignore?templates=python,venv,node,web
+# Local CLI build artifacts and hosting cache.
+.firebase/
 
 ### Node ###
 # Logs
@@ -336,5 +336,3 @@ pip-selfcheck.json
 *.wasm
 *.wat
 *.xhtml
-
-# End of https://www.toptal.com/developers/gitignore/api/python,venv,node,web

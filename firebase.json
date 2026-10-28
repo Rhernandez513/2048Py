@@ -1,0 +1,23 @@
+{
+    "hosting": {
+      "public": "web", // Or your chosen public directory
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "/game{,/**}", // Matches /game and /game/*
+          "run": {
+            "serviceId": "py2048api", // e.g., py2048api
+            "region": "us-central1" // The region of your Cloud Run service
+          }
+        },
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    }
+  }
